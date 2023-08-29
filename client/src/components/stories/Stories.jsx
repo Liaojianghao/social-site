@@ -6,7 +6,7 @@ import { makeRequest } from '../../axios';
 
 const Stories = () => {
   const [file, setFile] = useState(null);
-
+  console.log(file);
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery(['stories'], () =>
@@ -50,13 +50,16 @@ const Stories = () => {
   return (
     <div className="stories">
       <div className="story">
+        {file && (
+          <img className="file" alt="" src={URL.createObjectURL(file)} />
+        )}
         <input
           type="file"
-          id="file"
+          id="storyFile"
           style={{ display: 'none' }}
           onChange={e => setFile(e.target.files[0])}
         />
-        <label htmlFor="file">
+        <label htmlFor="storyFile">
           <img src={'/upload/' + currentUser.profilePic} alt="" />
         </label>
         <span>{currentUser.name}</span>
@@ -69,7 +72,6 @@ const Stories = () => {
         : data.map(story => (
             <div className="story" key={story.id}>
               <img src={'/upload/' + story.img} alt="" />
-              <span>这是我在测试这是我在测试</span>
             </div>
           ))}
     </div>

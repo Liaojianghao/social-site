@@ -14,7 +14,7 @@ const Share = () => {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await makeRequest.post('/upload', formData);
+      const res = await makeRequest.post('upload', formData);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -45,7 +45,7 @@ const Share = () => {
     setDesc('');
     setFile(null);
   };
-  console.log(file);
+
   return (
     <div className="share">
       <div className="container">
@@ -54,7 +54,7 @@ const Share = () => {
             <img src={'/upload/' + currentUser.profilePic} alt="" />
             <input
               type="text"
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`${currentUser.name} 今天的心情是怎么样的 ?`}
               onChange={e => setDesc(e.target.value)}
               value={desc}
             />
@@ -70,11 +70,14 @@ const Share = () => {
           <div className="left">
             <input
               type="file"
-              id="file"
+              id="shareFile"
               style={{ display: 'none' }}
-              onChange={e => setFile(e.target.files[0])}
+              onChange={e => {
+                setFile(e.target.files[0]);
+                console.log(e.target.files[0]);
+              }}
             />
-            <label htmlFor="file">
+            <label htmlFor="shareFile">
               <div className="item">
                 <img src={Image} alt="" />
                 <span>添加图片</span>

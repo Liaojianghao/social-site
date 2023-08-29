@@ -7,15 +7,17 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/darkModeContext';
 import { AuthContext } from '../../context/authContext';
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
+
   return (
     <div className="navbar">
       <div className="left">
@@ -41,6 +43,11 @@ const Navbar = () => {
         <div className="user">
           <img src={'/upload/' + currentUser.profilePic} alt="" />
           <span>{currentUser.name}</span>
+        </div>
+        <div className="userLogout">
+          <div onClick={() => navigate('/login')}>
+            <span>退出登录</span>
+          </div>
         </div>
       </div>
     </div>
